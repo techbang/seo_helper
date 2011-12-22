@@ -1,7 +1,7 @@
 require "seo_helper/helper"
 
 module SeoImageHelper
-  class Railtie < Rails::Railtie
+  class Engine < ::Rails::Engine
     initializer "seo_helper.view_helpers" do
       ActionView::Base.send :include, SeoHelper::Helper
     end
