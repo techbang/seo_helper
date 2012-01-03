@@ -1,39 +1,35 @@
 module SeoHelper
   module Helper
 
-    def meta_title(title, with_site_name=true)
-      if title.present?
-        title <<= " | #{SITE_NAME resuce "SITE_NAME"}" if with_site_name == true
-        tag(:meta, {:name => "title", :content => title})
-      end
+    # <meta name="title" content="..." />
+    def title_meta_tag(title, with_site_name=false)
+      title <<= " | #{SITE_NAME}" if with_site_name == true
+      tag(:meta, {:name => "title", :content => title}, true)
     end
 
-    def meta_description(content, with_site_name=false)
-      if content.present?
-        content <<= "| #{SITENAME rescue "SITE_NAME"}" if with_site_name == true
-        tag(:meta, { :name => "description", :content => strip_tags(content) }, true)
-      end
+    # <meta name="description" content="..." />
+    def description_meta_tag(content, with_site_name=false)
+      content <<= "| #{SITE_NAME}" if with_site_name == true
+      tag(:meta, { :name => "description", :content => strip_tags(content) }, true)
     end
 
-    def meta_keywords(keywords)
-      if keywords.present?
-        keywords = keywords.join(',') if keywords.is_a? Array
-        tag(:meta, {:name => "keywords", :content => keywords})
-      end
+    # <meta name="keywords" content="..." />
+    def keywords_meta_tag(keywords)
+      keywords = keywords.join(',') if keywords.is_a? Array
+      tag(:meta, {:name => "keywords", :content => keywords}, true)
     end
 
-    def link_image(image_url)
-      if image_url.present?
-        tag(:link, { :rel => "image_src", :href => image_url }, true)
-      end
+    # <link rel="image_src" content="..." />
+    def image_src_link_tag(image_url)
+      tag(:link, { :rel => "image_src", :href => image_url }, true)
     end
 
     def link_favicon(ico_url = "/favicon.ico")
       tag(:link, { :rel => "shortcut icon", :href => ico_url }, true)
     end
 
-
-    def meta_robots(content = "INDEX,FOLLOW")
+    # <meta name="robots" content="INDEX,FOLLOW" />
+    def robots_meta_tag(content = "INDEX,FOLLOW")
       tag(:meta, { :name => "robots", :content => content }, true)
     end
   end
