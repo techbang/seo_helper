@@ -3,19 +3,19 @@ module SeoHelper
 
     # <title>...</title>
     def title_tag(title, with_site_name=false)
-      title <<= " | #{SeoHelper.configuration.site_name}" if with_site_name == true
+      title = SeoHelper.format_site_name(title, SeoHelper.configuration.site_name) if with_site_name == true
       content_tag(:title, title, nil, false)  # option=nil, escape=false
     end
 
     # <meta name="title" content="..." />
     def title_meta_tag(title, with_site_name=false)
-      title <<= " | #{SeoHelper.configuration.site_name}" if with_site_name == true
+      title = SeoHelper.format_site_name(title, SeoHelper.configuration.site_name) if with_site_name == true
       tag(:meta, {:name => "title", :content => title})
     end
 
     # <meta name="description" content="..." />
     def description_meta_tag(content, with_site_name=false)
-      content <<= "| #{SeoHelper.configuration.site_name}" if with_site_name == true
+      title = SeoHelper.format_site_name(title, SeoHelper.configuration.site_name) if with_site_name == true
       tag(:meta, { :name => "description", :content => strip_tags(content) })
     end
 
@@ -69,8 +69,12 @@ module SeoHelper
 
     # will also append current page number and the site name
     def set_page_title(title)
-      pagination  = " -  Page #{params[:page]}" if params[:page]
-      @page_title = "#{title}#{pagination} | #{SeoHelper.configuration.site_name}"
+      if params[:page]
+        @page_title = SeoHelper.format_current_page(title, params[:page])
+      else
+        @page_title = title
+      end
+      @page_title = SeoHelper.format_site_name(@page_title, SeoHelper.configuration.site_name)
     end
 
     def set_page_description(description)
