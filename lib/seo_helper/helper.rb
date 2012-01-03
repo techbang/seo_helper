@@ -24,10 +24,6 @@ module SeoHelper
       tag(:link, { :rel => "image_src", :href => image_url }, true)
     end
 
-    def link_favicon(ico_url = "/favicon.ico")
-      tag(:link, { :rel => "shortcut icon", :href => ico_url }, true)
-    end
-
     # <meta name="robots" content="INDEX,FOLLOW" />
     def robots_meta_tag(content = "INDEX,FOLLOW")
       tag(:meta, { :name => "robots", :content => content }, true)
