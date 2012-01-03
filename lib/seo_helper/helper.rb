@@ -1,27 +1,31 @@
 module SeoHelper
   module Helper
 
-    def meta_title(title)
-      return nil if title.blank?
-      title = title + " | " + (SITE_NAME rescue "SITE_NAME")
-      tag(:meta, {:name => "title", :content => title})
+    def meta_title(title, with_site_name=true)
+      if title.present?
+        title <<= " | #{SITE_NAME resuce "SITE_NAME"}" if with_site_name == true
+        tag(:meta, {:name => "title", :content => title})
+      end
     end
 
-    def meta_description(content, site_name = false)
-      return nil if content.blank?
-      content = content + " | " + (SITE_NAME rescue "SITE_NAME") if site_name
-      tag(:meta, { :name => "description", :content => strip_tags(content) }, true)
+    def meta_description(content, with_site_name=false)
+      if content.present?
+        content <<= "| #{SITENAME rescue "SITE_NAME"}" if with_site_name == true
+        tag(:meta, { :name => "description", :content => strip_tags(content) }, true)
+      end
     end
 
-    def meta_keywords(word)
-      return nil if word.blank?
-      # word = word + (SITE_NAME rescue "SITE_NAME")
-      tag(:meta, {:name => "keywords", :content => word})
+    def meta_keywords(keywords)
+      if keywords.present?
+        keywords = keywords.join(',') if keywords.is_a? Array
+        tag(:meta, {:name => "keywords", :content => keywords})
+      end
     end
 
     def link_image(image_url)
-      return nil if image_url.blank?
-      tag(:link, { :rel => "image_src", :href => image_url }, true)
+      if image_url.present?
+        tag(:link, { :rel => "image_src", :href => image_url }, true)
+      end
     end
 
     def link_favicon(ico_url = "/favicon.ico")
