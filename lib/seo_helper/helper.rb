@@ -19,11 +19,6 @@ module SeoHelper
       tag(:meta, {:name => "keywords", :content => word})
     end
 
-    def render_rel_image(image_url)
-      return nil if image_url.blank?
-      tag(:link, {:rel => "image_src", :href => image_url})
-    end
-
     def link_image(image_url)
       return nil if image_url.blank?
       tag(:link, { :rel => "image_src", :href => image_url }, true)
