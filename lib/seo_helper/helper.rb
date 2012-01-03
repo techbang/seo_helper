@@ -46,22 +46,24 @@ module SeoHelper
       title_meta_tag(page_title || SeoHelper.configuration.site_name)
     end
 
+    # @page_xxx |   skip_blank  | don't skip_blank
+    # ----------+---------------+-------------------
+    # present   |   @page_xxx   |  @page_xxx
+    # blank     |  (no output)  |  default_page_xxx
+
     def render_page_description_meta_tag
-      if !(SeoHelper.configuration.skip_blank && page_description.blank?)
-        description_meta_tag(page_description)
-      end
+      return if SeoHelper.configuration.skip_blank && page_description.blank?
+      description_meta_tag(page_description || SeoHelper.configuration.default_page_description)
     end
 
     def render_page_keywords_meta_tag
-      if !(SeoHelper.configuration.skip_blank && page_keywords.blank?)
-        keywords_meta_tag(page_keywords)
-      end
+      return if SeoHelper.configuration.skip_blank && page_keywords.blank?
+      keywords_meta_tag(page_keywords || SeoHelper.configuration.default_page_keywords)
     end
 
     def render_page_image_link_tag
-      if !(SeoHelper.configuration.skip_blank && page_image.blank?)
-        image_src_link_tag(page_image)
-      end
+      return if SeoHelper.configuration.skip_blank && page_image.blank?
+      image_src_link_tag(page_image || SeoHelper.configuration.default_page_image)
     end
   end
 
