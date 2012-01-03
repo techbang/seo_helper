@@ -28,6 +28,49 @@ module SeoHelper
     def robots_meta_tag(content = "INDEX,FOLLOW")
       tag(:meta, { :name => "robots", :content => content }, true)
     end
+
+    attr_reader :page_title, :page_description, :page_keywords, :page_image
+
+    def render_page_title_tag
+      # fallback to SITE_NAME if @page_title has never been set
+      title_tag(page_title || SITE_NAME)
+    end
+
+    def render_page_title_meta_tag
+      title_meta_tag(page_title || SITE_NAME)
+    end
+
+    def render_page_description_meta_tag
+      description_meta_tag(page_description)
+    end
+
+    def render_page_keywords_meta_tag
+      keywords_meta_tag(page_keywords)
+    end
+
+    def render_page_image_link_tag
+      image_src_link_tag(page_image)
+    end
   end
 
+  module ControllerHelper
+
+    # will also append current page number and the site name
+    def set_page_title(title)
+      pagination  = " -  Page #{params[:page]}" if params[:page]
+      @page_title = "#{title}#{pagination} | #{SITE_NAME}"
+    end
+
+    def set_page_description(description)
+      @page_description = description
+    end
+
+    def set_page_keywords(keywords)
+      @page_keywords = keywords
+    end
+
+    def set_page_image(image_src)
+      @page_image = image_src
+    end
+  end
 end
