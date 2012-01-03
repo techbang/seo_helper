@@ -6,7 +6,7 @@ module SeoHelper
 
     def initialize
       # Set default site_name according to the Rails application class name
-      self.site_name = ::Rails.application.class.to_s.split("::").first
+      self.site_name    = ::Rails.application.class.to_s.split("::").first
     end
 
   end
