@@ -1,6 +1,12 @@
 module SeoHelper
   module Helper
 
+    # <title>...</title>
+    def title_tag(title, with_site_name=false)
+      title <<= " | #{SITE_NAME}" if with_site_name == true
+      content_tag(:title, title, nil, false)  # option=nil, escape=false
+    end
+
     # <meta name="title" content="..." />
     def title_meta_tag(title, with_site_name=false)
       title <<= " | #{SITE_NAME}" if with_site_name == true
