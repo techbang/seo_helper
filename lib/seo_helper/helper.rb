@@ -47,15 +47,21 @@ module SeoHelper
     end
 
     def render_page_description_meta_tag
-      description_meta_tag(page_description)
+      if !(SeoHelper.configuration.skip_blank && page_description.blank?)
+        description_meta_tag(page_description)
+      end
     end
 
     def render_page_keywords_meta_tag
-      keywords_meta_tag(page_keywords)
+      if !(SeoHelper.configuration.skip_blank && page_keywords.blank?)
+        keywords_meta_tag(page_keywords)
+      end
     end
 
     def render_page_image_link_tag
-      image_src_link_tag(page_image)
+      if !(SeoHelper.configuration.skip_blank && page_image.blank?)
+        image_src_link_tag(page_image)
+      end
     end
   end
 
