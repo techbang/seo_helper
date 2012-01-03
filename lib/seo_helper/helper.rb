@@ -10,29 +10,29 @@ module SeoHelper
     # <meta name="title" content="..." />
     def title_meta_tag(title, with_site_name=false)
       title <<= " | #{SITE_NAME}" if with_site_name == true
-      tag(:meta, {:name => "title", :content => title}, true)
+      tag(:meta, {:name => "title", :content => title})
     end
 
     # <meta name="description" content="..." />
     def description_meta_tag(content, with_site_name=false)
       content <<= "| #{SITE_NAME}" if with_site_name == true
-      tag(:meta, { :name => "description", :content => strip_tags(content) }, true)
+      tag(:meta, { :name => "description", :content => strip_tags(content) })
     end
 
     # <meta name="keywords" content="..." />
     def keywords_meta_tag(keywords)
       keywords = keywords.join(',') if keywords.is_a? Array
-      tag(:meta, {:name => "keywords", :content => keywords}, true)
+      tag(:meta, {:name => "keywords", :content => keywords})
     end
 
     # <link rel="image_src" content="..." />
     def image_src_link_tag(image_url)
-      tag(:link, { :rel => "image_src", :href => image_url }, true)
+      tag(:link, { :rel => "image_src", :href => image_url })
     end
 
     # <meta name="robots" content="INDEX,FOLLOW" />
     def robots_meta_tag(content = "INDEX,FOLLOW")
-      tag(:meta, { :name => "robots", :content => content }, true)
+      tag(:meta, { :name => "robots", :content => content })
     end
 
     attr_reader :page_title, :page_description, :page_keywords, :page_image
