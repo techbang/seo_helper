@@ -1,4 +1,5 @@
 require 'seo_helper/configuration'
+require 'seo_helper/format'
 
 module SeoHelper
   class << self
