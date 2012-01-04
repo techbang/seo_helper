@@ -27,7 +27,7 @@ to install this plug-in.
 
 After installation, add `config/initializers/seo_helper.rb` into your Rails application, specifying the basic configuration like this:
 
-```ruby config/initializers/seo_helper.rb
+```ruby
 SeoHelper.configure do |config|
   config.site_name = "My Awesome Web Application"
 end
@@ -45,7 +45,7 @@ It's always been a complex job to render a pretty title and put it in both the `
 
 First, put this in your layout file, between `<head>` and `</head>`:
 
-```ruby application.html.erb
+```ruby
 <%= render_page_title_tag %>
 ```
 
@@ -57,7 +57,7 @@ Now visit any page of your application, you'll see that the browser's title will
 
 To specify the title of current page in an controller action, for example, in the `Articles#show` action, use `set_page_title`
 
-```ruby articles_controller.rb
+```ruby
 def show
   # ...
   set_page_title @article.title
@@ -82,7 +82,7 @@ For SEO, you may want to put some `<meta>` tags and `<link rel="image-src" />` t
 
 First, put this in your layout file, between `<head>` and `</head>`:
 
-```erb application.html.erb
+```erb
 <%= render_page_title_meta_tag %><%# This might be unnecessary %>
 <%= render_page_description_meta_tag %>
 <%= render_page_keywords_meta_tag %>
@@ -92,7 +92,7 @@ You can replace the hard-coded `<meta>` tags with these helpers.
 
 To specify the description and keywords of current page in an controller action, for example, in the `Articles#show` action, use `set_page_description`
 
-```ruby articles_controller.rb
+```ruby
 def show
   # ...
   set_page_title       @article.title   # same as <title> tag
@@ -115,23 +115,32 @@ If `set_pages_keywords` receives an array, it'll convert the array to a string j
 
 This tag tells search engine what the related image of this page is.  To render this tag, put `render_page_image_link_tag` in your layout file, between `<head>` and `</head>`:
 
-```ruby application.html.erb
+```ruby
 <%= render_page_image_link_tag %>
 ```
 
 You can replace the hard-coded `<link rel="image_src" />` tag with this helper.
 
+To specify the title of current page in an controller action, for example, in the `Articles#show` action, use `set_page_image`
+
+```ruby
+def show
+  # ...
+  set_page_image @article.excerpt_image_url
+end
+```
+
 Now visit any article, and open it's source, you'll see this link tag:
 
 ```html
-<link href="http://url.to/the-excerpt-image.jpg" rel="image_src" />
+<link href="http://www.example.com/articles/123/the-excerpt-image.jpg" rel="image_src" />
 ```
 
 ## Re-use Page-Specific SEO Data in View
 
 Sometimes you may want to use the page title, description, keywords and the image url.  Say you're working with [OpenGraph Meta tags](http://developers.facebook.com/docs/opengraph/), you may re-use them in your view:
 
-```erb application.html.erb
+```erb
 <meta property="og:title"       content="<%= page_title %>"/>
 <meta property="og:description" content="<%= page_description %>"/>
 <meta property="og:image"       content="<%= page_image %>"/>
@@ -145,7 +154,7 @@ Sometimes you just want to skip SEO tags when their contents are empty.  This is
 
 If you want to force SeoHelper to render a default description meta tag, keywords meta tag, or image_src link tag, you can explicitly tell SeoHelper with configure block, in the initializer:
 
-```ruby config/initialiers/seo_helper.rb
+```ruby
 SeoHelper.configure do |config|
   # ...
   config.skip_blank          = false
@@ -163,7 +172,7 @@ While SeoHelper provides `set_page_XXX` and `render_page_XXX_meta_tag` helper pa
 
 For example,
 
-```erb application.html.erb
+```erb
 <%= title_tag("Hello! World") %>
 <%= description_meta_tag("Lorem ipsum dolor sit amet!") %>
 <%= image_src_link_tag("http://www.example.com/title.png") %>
@@ -179,7 +188,7 @@ yields
 
 You can also add Site Name to the customized title, just put `true` as the second argument. For example, if you set `site_name` to `My Awesome Web Application`, then
 
-```erb application.html.erb
+```erb
 <%= title_tag("Hello! World", true) %>
 ```
 
@@ -203,7 +212,7 @@ The default format of Page Number in Title is:
 
 Changing the page number format by specifying a new lambda block:
 
-```ruby config/initialiers/seo_helper.rb
+```ruby
 SeoHelper.configure do |config|
   config.pagination_formatter = lambda { |title, page_number| "#{title} - Page No.#{page_number}" }
 end
@@ -223,7 +232,7 @@ The default format of Site Name in Title is:
 
 Changing the site name format by specifying a new lambda block:
 
-```ruby config/initialiers/seo_helper.rb
+```ruby
 SeoHelper.configure do |config|
   config.site_name_formatter  = lambda { |title, site_name|   "#{title} &laquo; #{site_name}" }
 end
