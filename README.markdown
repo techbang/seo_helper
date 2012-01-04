@@ -157,10 +157,10 @@ If you want to force SeoHelper to render a default description meta tag, keyword
 ```ruby
 SeoHelper.configure do |config|
   # ...
-  config.skip_blank          = false
-  config.default_description = "This is a really really awesome website"
-  config.default_keywords    = "hello,world,yay"
-  config.default_image       = "http://www.example.com/title.png"
+  config.skip_blank               = false
+  config.default_page_description = "This is a really really awesome website"
+  config.default_page_keywords    = "hello,world,yay"
+  config.default_page_image       = "http://www.example.com/title.png"
 end
 ```
 
