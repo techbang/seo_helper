@@ -4,25 +4,27 @@ module SeoHelper
     # <title>...</title>
     def title_tag(title, with_site_name=false)
       title = SeoHelper.format_site_name(title, SeoHelper.configuration.site_name) if with_site_name == true
-      content_tag(:title, title, nil, false)  # option=nil, escape=false
+      content_tag(:title, h(title), nil, false)  # option=nil, escape=false
     end
 
     # <meta name="title" content="..." />
     def title_meta_tag(title, with_site_name=false)
       title = SeoHelper.format_site_name(title, SeoHelper.configuration.site_name) if with_site_name == true
-      tag(:meta, {:name => "title", :content => title})
+      tag(:meta, {:name => "title", :content => h(title)})
     end
 
     # <meta name="description" content="..." />
     def description_meta_tag(content, with_site_name=false)
       title = SeoHelper.format_site_name(title, SeoHelper.configuration.site_name) if with_site_name == true
-      tag(:meta, { :name => "description", :content => strip_tags(content) })
+      # use String.new to avoid always (html_save == true) which makes h() inactive
+      content = h(String.new(strip_tags(content)))
+      tag(:meta, { :name => "description", :content => content })
     end
 
     # <meta name="keywords" content="..." />
     def keywords_meta_tag(keywords)
       keywords = keywords.join(',') if keywords.is_a? Array
-      tag(:meta, {:name => "keywords", :content => keywords})
+      tag(:meta, {:name => "keywords", :content => h(keywords)})
     end
 
     # <link rel="image_src" content="..." />
