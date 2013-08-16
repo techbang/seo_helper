@@ -7,11 +7,15 @@ module SeoHelper
   end
 
   module Rails
-    if ::Rails.version < "3.1"
-      require "seo_helper/railtie"
-    else
+    case ::Rails.version.to_s
+    when /^4/
       require "seo_helper/engine"
+    when /^3\.[12]/
+      require "seo_helper/engine3"
+    when /^3\.[0]/
+      require "seo_helper/railtie"
     end
+
   end
 
   def self.configure
