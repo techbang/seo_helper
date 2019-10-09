@@ -8,7 +8,7 @@ module SeoHelper
 
   module Rails
     case ::Rails.version.to_s
-    when /^4/
+    when /^4/, /^5/, /^6/
       require "seo_helper/engine"
     when /^3\.[12]/
       require "seo_helper/engine3"
