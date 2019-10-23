@@ -6,6 +6,7 @@ module SeoHelper
     attr_accessor :default_page_keywords
     attr_accessor :default_page_image
 
+    attr_accessor :page_title_with_site_name
     attr_accessor :skip_blank
 
     attr_accessor :pagination_formatter
