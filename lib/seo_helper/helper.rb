@@ -72,7 +72,7 @@ module SeoHelper
   module ControllerHelper
 
     # will also append current page number and the site name
-    def set_page_title(title, site_name = nil, with_site_name: true)
+    def set_page_title(title, site_name = nil, with_site_name: SeoHelper.configuration.page_title_with_site_name)
       site_name ||= SeoHelper.configuration.site_name
 
       if params[:page]

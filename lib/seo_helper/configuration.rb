@@ -14,7 +14,9 @@ module SeoHelper
     def initialize
       # Set default site_name according to the Rails application class name
       self.site_name    = ::Rails.application.class.to_s.split("::").first
-      self.skip_blank   = true
+
+      self.page_title_with_site_name = true
+      self.skip_blank                = true
 
       self.default_page_description = ""
       self.default_page_keywords    = ""
