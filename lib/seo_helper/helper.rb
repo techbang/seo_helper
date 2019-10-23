@@ -81,9 +81,7 @@ module SeoHelper
         @page_title = title
       end
 
-      return unless with_site_name
-
-      @page_title = SeoHelper.format_site_name(@page_title, site_name)
+      @page_title = SeoHelper.format_site_name(@page_title, site_name) if with_site_name
     end
 
     def set_page_description(description)
